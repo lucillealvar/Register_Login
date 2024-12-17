@@ -1,4 +1,6 @@
-@import '../styles/global';
+@use '../styles/global';
+@use '../styles/variables';
+@use '../styles/mixins';
 
 .register {
     display: flex;
@@ -6,11 +8,12 @@
     align-items: center;
     flex-direction: column;
     text-align: center;
-    border: 2px solid deeppink;
-    padding: 30px;
-    &_title {
+    border: 1px solid variables.$border1;
+    border-radius: 15px;
+    background: variables.$border1;
+    box-shadow: 20px 30px 45px;
+    padding: 35px;
 
-    }
     &_form {
         &-field {
             display: flex;
@@ -18,10 +21,11 @@
             align-items: center;
             flex-direction: column;
             input {
+                width: 200px;
                 margin: 10px 0;
-                padding: 7px;
-                border: 1px solid black;
-                border-radius: 7px;
+                padding: 12px;
+                border: 1px solid variables.$border1;
+                border-radius: 10px;
             }
         }
         &-login {
@@ -30,6 +34,11 @@
             align-items: center;
             a {
                 padding-left: 10px;
+                color: variables.$title;
+                &:hover {
+                    cursor: pointer;
+                    text-decoration: underline;
+                }
             }
         }
     }
