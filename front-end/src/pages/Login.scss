@@ -1,0 +1,45 @@
+@use '../styles/global';
+@use '../styles/variables';
+@use '../styles/mixins';
+
+.login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    border: 1px solid variables.$border1;
+    border-radius: 15px;
+    background: variables.$border1;
+    box-shadow: 20px 30px 45px rgb(92, 116, 116);
+    padding: 35px;
+
+    &_form {
+        &-field {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            input {
+                width: 200px;
+                margin: 10px 0;
+                padding: 12px;
+                border: 1px solid variables.$border1;
+                border-radius: 10px;
+            }
+        }
+        &-signup {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            a {
+                padding-left: 10px;
+                color: variables.$title;
+                &:hover {
+                    cursor: pointer;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
