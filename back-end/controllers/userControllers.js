@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken")
 
 const User = require("../models/userModel");
 const HttpError = require("../models/errorModels");
@@ -21,18 +22,46 @@ const register = async (req, res, next) => {
       );
     }
 
-    const salt = await bcrypt.genSalt(10)
+    const salt = await bcrypt.genSalt(10);
     const hashedPass = await bcrypt.hash(password, salt);
-    const newUser = await User.create({name, email: newEmail, password:hashedPass})
-    res.status(201).json(`New user ${newUser.email} registered`)
+    const newUser = await User.create({
+      nameame,
+      email: newEmail,
+      password: hashedPass,
+    });
+    res.status(201).json(`New user ${newUser.email} registered`);
   } catch (error) {
     return next(new HttpError("User registration failed", 422));
   }
 };
 
 //Login User
-const login = (req, res, next) => {
-  res.json("Login User");
+const login = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return next(new HttpError("Fill in all fields", 422));
+    }
+    const newEmail = email.toLowerCase();
+    const user = await User.findOne({ email: newEmail });
+
+    if (!user) {
+      return next(new HttpError("Invalid email/password", 422));
+    }
+    const comparePass = await bcrypt.compare(password, user.password)
+    if(!comparePass) {
+      return next(new HttpError("Invalid email/password", 422));
+    }
+
+    const {id: id, name} = user;
+    const token =jwt.sign({id, name}, process.env.JWT_SECRET, {expiresIn: "1d"})
+
+    res.status(200).json({token, id, name})
+  } catch (error) {
+    return next(
+      new HttpError("Login failed. Please check your credentials", 422)
+    );
+  }
 };
 
 module.exports = { register, login };
