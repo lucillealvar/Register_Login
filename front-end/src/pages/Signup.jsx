@@ -21,14 +21,19 @@ function Signup() {
   const handleRegister = async (e) => {
     e.preventDefault();
     setError("");
+
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/users/register`, userData)
+      const response = await axios.post(
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/users/register`,
+        userData
+      );
+      
       const newUser = await response.data;
       console.log(newUser);
-      if(!newUser){
-        setError("Could not register user. Please try again.")
+      if (!newUser) {
+        setError("Could not register user. Please try again.");
       }
-      navigate('/')
+      navigate("/login");
     } catch (error) {
       setError(error.response.data.message);
     }
@@ -42,6 +47,7 @@ function Signup() {
       </div>
       <div className="register_form">
         <form className="register_form-field" onSubmit={handleRegister}>
+          {error && <p className="register_form-field-error">{error}</p>}
           <input
             type="text"
             className="username"
@@ -68,7 +74,9 @@ function Signup() {
             value={userData.password}
             onChange={changeInput}
           />
-          <button type="submit" className="btn">Sign up</button>
+          <button type="submit" className="btn">
+            Sign up
+          </button>
         </form>
         <div className="register_form-login">
           <p>Already have an account?</p>

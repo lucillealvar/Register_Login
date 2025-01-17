@@ -20,6 +20,9 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            &-error {
+                color: red;
+            }
             input {
                 width: 200px;
                 margin: 10px 0;
