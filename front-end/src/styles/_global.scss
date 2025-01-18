@@ -1,0 +1,34 @@
+@use "./variables";
+@use "./mixins";
+
+
+body {
+    margin: auto;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: variables.$afacad-reg;
+    background: variables.$background;
+    h1 {
+        color: variables.$title;
+    }
+    h3, p {
+        color: variables.$descr;
+    }
+    button {
+        width: 100%;
+        margin: 10px 0;
+        padding: 12px;
+        border: 1px solid variables.$border1;
+        border-radius: 20px;
+        background: variables.$btn;
+        color: variables.$title;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+}
